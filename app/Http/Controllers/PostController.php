@@ -15,14 +15,13 @@ class PostController extends Controller
     /**
      * PostController constructor.
      */
-    public function __construct(AuthService $authService, ResponseHelper $responseHelper) 
+    public function __construct(AuthService $authService, ResponseHelper $responseHelper)
     {
         $this->authService = $authService;
         $this->responseHelper = $responseHelper; // Gán giá trị ở đây
     }
-    
+
     /**
-     * @return JsonResponse
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request): JsonResponse
@@ -46,11 +45,45 @@ class PostController extends Controller
         return $this->sendResponse($data, 'update');
     }
 
-    public function detail($slug): JsonResponse
+    /**
+     * Lấy chi tiết bài viết và ghi nhận lượt xem
+     * 
+     * @param string $slug
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function detail($slug, Request $request): JsonResponse
     {
+        // Bước 1: Ghi nhận view (có IP check)
+        PostService::getInstance()->recordView($slug, $request);
+        
+        // Bước 2: Lấy detail
         $data = PostService::getInstance()->detail($slug);
-
+        
         return $this->sendResponse($data, 'detail');
+    }
+
+    /**
+     * Lấy danh sách trending posts
+     * 
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function trending(Request $request): JsonResponse
+    {
+        $data = PostService::getInstance()->getTrending($request);
+        return $this->sendResponse($data, 'trending');
+    }
+
+    /**
+     * Lấy danh sách featured posts
+     * 
+     * @return JsonResponse
+     */
+    public function featured(): JsonResponse
+    {
+        $data = PostService::getInstance()->getFeatured();
+        return $this->sendResponse($data, 'featured');
     }
 
     public function show($id): JsonResponse

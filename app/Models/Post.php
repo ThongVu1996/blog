@@ -14,17 +14,24 @@ class Post extends Model
         'category_id',
         'title',
         'slug',
-        'type',     
+        'type',
         'excerpt',
-        'content',  
+        'content',
         'image',
-        'author',   
-        'read_time', 
+        'author',
+        'read_time',
         'status',
+        'toc',
+        'views_count',
+        'is_featured',
+        'featured_order',
     ];
 
     protected $casts = [
         'published_at' => 'datetime',
+        'is_featured' => 'boolean',
+        'views_count' => 'integer',
+        'featured_order' => 'integer',
     ];
 
     public function user(): BelongsTo
@@ -35,5 +42,10 @@ class Post extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function views()
+    {
+        return $this->hasMany(PostView::class);
     }
 }

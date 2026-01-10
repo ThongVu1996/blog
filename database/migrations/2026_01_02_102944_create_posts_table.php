@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('type')->default('html'); // Khớp với formData.type
             $table->text('excerpt')->nullable(); // Khớp với formData.excerpt
             $table->longText('content'); // Khớp với formData.content (Lưu mã HTML)
+            $table->longText('toc'); // Khớp với formData.content (Lưu mã HTML)
             $table->string('image')->nullable(); // Khớp với formData.image (URL hình ảnh)
             $table->string('author')->default('Admin'); // Khớp với formData.author
             $table->string('read_time')->nullable(); // Khớp với post.read_time (Ví dụ: "10 min")

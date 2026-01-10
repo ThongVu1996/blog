@@ -23,12 +23,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'anhthongvu1996@gmail.com',
             'password' => \Illuminate\Support\Facades\Hash::make('Vuthong1996a@'),
         ]);
-        $categories = [
-            ['id' => 1, 'name' => 'All'],
-        ];
+        /* $categories = [ */
+        /*     ['id' => 1, 'name' => 'Docker'], */
+        /* ]; */
 
-        foreach ($categories as $cat) {
-            Category::updateOrCreate(['id' => $cat['id']], $cat);
-        }
+        /* foreach ($categories as $cat) { */
+        /*     Category::updateOrCreate(['id' => $cat['id']], $cat); */
+        /* } */
     }
 }
